@@ -36,9 +36,8 @@ switch ($_GET["op"]) {
         $genero = $_POST["genero"];
         $año_lanzamiento = $_POST["año_lanzamiento"];
         $discografica = $_POST["discografica"];
-        $artista_id = $_POST["artista_id"];
         
-        $datos = $Albumes->insertar($titulo, $genero, $año_lanzamiento, $discografica, $artista_id);
+        $datos = $Albumes->insertar($titulo, $genero, $año_lanzamiento, $discografica);
         echo json_encode($datos);
         break;
 
@@ -48,9 +47,8 @@ switch ($_GET["op"]) {
         $genero = $_POST["genero"];
         $año_lanzamiento = $_POST["año_lanzamiento"];
         $discografica = $_POST["discografica"];
-        $artista_id = $_POST["artista_id"];
         
-        $result = $Albumes->actualizar($album_id, $titulo, $genero, $año_lanzamiento, $discografica, $artista_id);
+        $result = $Albumes->actualizar($album_id, $titulo, $genero, $año_lanzamiento, $discografica);
         echo json_encode($result);
         break;
 
