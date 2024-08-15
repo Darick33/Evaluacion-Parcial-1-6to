@@ -8,14 +8,14 @@ if ($method == "OPTIONS") {
     die();
 }
 
-require_once('../models/album.model.php');
+require_once('../models/albumes_artistas.model.php');
 error_reporting(0);
-$Albumes = new Album();
+$AlbumArtista = new AlbumArtista();
 
 switch ($_GET["op"]) {
     case 'todos':
         $datos = array();
-        $datos = $Albumes->todos();
+        $datos = $AlbumArtista->todos();
 
         while ($row = mysqli_fetch_assoc($datos)) 
         {
@@ -25,38 +25,32 @@ switch ($_GET["op"]) {
         break;
 
     case 'uno':
-        $album_id = $_POST["album_id"];
-            $datos = $Albumes->uno($album_id);
-            $res = mysqli_fetch_assoc($datos);
-            echo json_encode($res);
-            break;
+        $id_albumes_artistas = $_POST["id_albumes_artistas"];
+        $datos = $AlbumArtista->uno($id_albumes_artistas);
+        $res = mysqli_fetch_assoc($datos);
+        echo json_encode($res);
+        break;
 
     case 'insertar':
-        $titulo = $_POST["titulo"];
-        $genero = $_POST["genero"];
-        $año_lanzamiento = $_POST["año_lanzamiento"];
-        $discografica = $_POST["discografica"];
+        $album_id = $_POST["album_id"];
         $artista_id = $_POST["artista_id"];
         
-        $datos = $Albumes->insertar($titulo, $genero, $año_lanzamiento, $discografica, $artista_id);
+        $datos = $AlbumArtista->insertar($album_id, $artista_id);
         echo json_encode($datos);
         break;
 
     case 'actualizar':
+        $id_albumes_artistas = $_POST["id_albumes_artistas"];
         $album_id = $_POST["album_id"];
-        $titulo = $_POST["titulo"];
-        $genero = $_POST["genero"];
-        $año_lanzamiento = $_POST["año_lanzamiento"];
-        $discografica = $_POST["discografica"];
         $artista_id = $_POST["artista_id"];
         
-        $result = $Albumes->actualizar($album_id, $titulo, $genero, $año_lanzamiento, $discografica, $artista_id);
+        $result = $AlbumArtista->actualizar($id_albumes_artistas, $album_id, $artista_id);
         echo json_encode($result);
         break;
 
     case 'eliminar':
-        $album_id = $_POST["album_id"];
-        $datos = $Albumes->eliminar($album_id);
+        $id_albumes_artistas = $_POST["id_albumes_artistas"];
+        $datos = $AlbumArtista->eliminar($id_albumes_artistas);
         echo json_encode($datos);
         break;
 }
